@@ -1,0 +1,19 @@
+name: Test cache-apt-pkgs-action
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install and cache packages
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: doxygen graphviz
+          version: 1.0
+
+      - name: Verify packages are installed
+        run: |
+          doxygen --version
+          dot -V
